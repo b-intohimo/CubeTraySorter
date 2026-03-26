@@ -1,0 +1,147 @@
+[gd_scene load_steps=4 format=3 uid="uid://by48ob5dd8jxb"]
+
+[ext_resource type="Script" uid="uid://5c1srd75hou6" path="res://scripts/Game.gd" id="1_game"]
+
+[sub_resource type="BoxMesh" id="2_tray_mesh"]
+size = Vector3(1.8, 0.4, 1.8)
+
+[sub_resource type="BoxShape3D" id="1_tray_collision"]
+size = Vector3(1.8, 1.2, 1.8)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_game")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.573576, 0, 0.469846, 0.67101, -0.573576, 0.32899, 0.469846, 0.819152, 0, 6, 0)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8, 13)
+
+[node name="Tray0" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+metadata/_custom_type_script = ""
+metadata/tray_index = 0
+
+[node name="TrayMesh" type="MeshInstance3D" parent="Tray0"]
+mesh = SubResource("2_tray_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tray0"]
+shape = SubResource("1_tray_collision")
+
+[node name="CubeHolder" type="Node3D" parent="Tray0"]
+
+[node name="Tray1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+metadata/_custom_type_script = ""
+metadata/tray_index = 1
+
+[node name="TrayMesh" type="MeshInstance3D" parent="Tray1"]
+mesh = SubResource("2_tray_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tray1"]
+shape = SubResource("1_tray_collision")
+
+[node name="CubeHolder" type="Node3D" parent="Tray1"]
+
+[node name="Tray2" type="StaticBody3D" parent="."]
+metadata/_custom_type_script = ""
+metadata/tray_index = 2
+
+[node name="TrayMesh" type="MeshInstance3D" parent="Tray2"]
+mesh = SubResource("2_tray_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tray2"]
+shape = SubResource("1_tray_collision")
+
+[node name="CubeHolder" type="Node3D" parent="Tray2"]
+
+[node name="Tray3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+metadata/_custom_type_script = ""
+metadata/tray_index = 3
+
+[node name="TrayMesh" type="MeshInstance3D" parent="Tray3"]
+mesh = SubResource("2_tray_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tray3"]
+shape = SubResource("1_tray_collision")
+
+[node name="CubeHolder" type="Node3D" parent="Tray3"]
+
+[node name="Tray4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+metadata/_custom_type_script = ""
+metadata/tray_index = 4
+
+[node name="TrayMesh" type="MeshInstance3D" parent="Tray4"]
+mesh = SubResource("2_tray_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tray4"]
+shape = SubResource("1_tray_collision")
+
+[node name="CubeHolder" type="Node3D" parent="Tray4"]
+
+[node name="WinBannerCanvas" type="CanvasLayer" parent="."]
+
+[node name="WinBanner" type="Control" parent="WinBannerCanvas"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinPanel_VBox#OKButton" type="Button" parent="WinBannerCanvas/WinBanner"]
+custom_minimum_size = Vector2(140, 44)
+offset_left = 503.0
+offset_top = 419.0
+offset_right = 643.0
+offset_bottom = 463.0
+text = "OK"
+
+[node name="WinBanner_CenterContainer#WinPanel" type="PanelContainer" parent="WinBannerCanvas/WinBanner"]
+modulate = Color(0, 0, 0, 0.55)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -199.0
+offset_right = 328.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinPanel_VBox#Title" type="Label" parent="WinBannerCanvas/WinBanner"]
+offset_left = 251.0
+offset_top = 187.0
+offset_right = 903.0
+offset_bottom = 244.0
+theme_override_font_sizes/font_size = 28
+text = "congratulations!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinPanel#VBox" type="VBoxContainer" parent="WinBannerCanvas/WinBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinBanner#CenterContainer" type="CenterContainer" parent="WinBannerCanvas/WinBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="WinBannerCanvas/WinBanner/WinPanel_VBox#OKButton" to="." method="_on_win_panel_v_box_ok_button_pressed"]
