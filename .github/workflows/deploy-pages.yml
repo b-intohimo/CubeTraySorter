@@ -13,7 +13,10 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
+
+env:
+  GODOT_VERSION: "4.6.1"
 
 jobs:
   deploy:
@@ -25,18 +28,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Export Web build
-        uses: firebelley/godot-export@v8.0.0
-        with:
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_export_templates.tpz
-          relative_project_path: ./
-          use_preset_export_path: true
-          presets_to_export: Web
-          cache: true
+      - name: Install Godot and export templates
+        run: |
+          set -euo pipefail
+          base="Godot_v${GODOT_VERSION}-stable_linux.x86_64"
+          curl -fsSL "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/${base}.zip" -o /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          sudo mv "/tmp/godot/${base}" /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
 
-      - name: Add .nojekyll
-        run: touch build/web/.nojekyll
+          curl -fsSL "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" -o /tmp/templates.tpz
+          template_dir="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          mkdir -p "$template_dir"
+          unzip -q /tmp/templates.tpz -d /tmp/templates
+          mv /tmp/templates/templates/* "$template_dir/"
+
+          godot --headless --version
+
+      - name: Export Web build
+        run: |
+          set -euo pipefail
+          godot --headless --import
+          mkdir -p build/web
+          godot --headless --export-release "Web" build/web/index.html
+          test -f build/web/index.html
+          touch build/web/.nojekyll
+          echo "Exported files:"
+          ls -la build/web
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
