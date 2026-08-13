@@ -94,54 +94,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WinPanel_VBox#OKButton" type="Button" parent="WinBannerCanvas/WinBanner"]
+[node name="Backdrop" type="ColorRect" parent="WinBannerCanvas/WinBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.82)
+
+[node name="CenterContainer" type="CenterContainer" parent="WinBannerCanvas/WinBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinPanel" type="PanelContainer" parent="WinBannerCanvas/WinBanner/CenterContainer"]
+custom_minimum_size = Vector2(360, 180)
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBox" type="VBoxContainer" parent="WinBannerCanvas/WinBanner/CenterContainer/WinPanel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="WinBannerCanvas/WinBanner/CenterContainer/WinPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Congratulations!"
+horizontal_alignment = 1
+
+[node name="OKButton" type="Button" parent="WinBannerCanvas/WinBanner/CenterContainer/WinPanel/VBox"]
 custom_minimum_size = Vector2(140, 44)
-offset_left = 503.0
-offset_top = 419.0
-offset_right = 643.0
-offset_bottom = 463.0
+layout_mode = 2
+size_flags_horizontal = 4
 text = "OK"
 
-[node name="WinBanner_CenterContainer#WinPanel" type="PanelContainer" parent="WinBannerCanvas/WinBanner"]
-modulate = Color(0, 0, 0, 0.55)
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -324.0
-offset_top = -199.0
-offset_right = 328.0
-offset_bottom = 195.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="WinPanel_VBox#Title" type="Label" parent="WinBannerCanvas/WinBanner"]
-offset_left = 251.0
-offset_top = 187.0
-offset_right = 903.0
-offset_bottom = 244.0
-theme_override_font_sizes/font_size = 28
-text = "congratulations!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WinPanel#VBox" type="VBoxContainer" parent="WinBannerCanvas/WinBanner"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="WinBanner#CenterContainer" type="CenterContainer" parent="WinBannerCanvas/WinBanner"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[connection signal="pressed" from="WinBannerCanvas/WinBanner/WinPanel_VBox#OKButton" to="." method="_on_win_panel_v_box_ok_button_pressed"]
+[connection signal="pressed" from="WinBannerCanvas/WinBanner/CenterContainer/WinPanel/VBox/OKButton" to="." method="_on_win_ok_pressed"]

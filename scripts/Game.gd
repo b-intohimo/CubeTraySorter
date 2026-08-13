@@ -36,7 +36,6 @@ const COLOR_MAP := {
 	$Tray4,
 ]
 @onready var win_banner: Control = $WinBannerCanvas/WinBanner
-@onready var win_panel: PanelContainer = $WinBannerCanvas/WinBanner/CenterContainer/WinPanel
 
 var stacks: Array = []
 var selected_tray_index := -1
@@ -47,7 +46,6 @@ func _ready() -> void:
 	camera.look_at(Vector3(0.0, 1.2, 0.0), Vector3.UP)
 	_initialize_stacks()
 	_refresh_all_trays()
-	_setup_win_banner_size()
 
 
 
@@ -129,22 +127,10 @@ func _can_move(source_index: int, target_index: int) -> bool:
 func _show_win_banner() -> void:
 	if not is_instance_valid(win_banner):
 		return
-	_setup_win_banner_size()
 	win_banner.visible = true
 
 
-func _setup_win_banner_size() -> void:
-	if not is_instance_valid(win_panel):
-		return
-
-	var vp := get_viewport().get_visible_rect().size
-	# 50% of the window in both dimensions.
-	win_panel.custom_minimum_size = vp * 0.5
-	win_banner.visible = false
-
-
 func _on_win_ok_pressed() -> void:
-	# Navigate back to the main menu.
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 
 
@@ -365,7 +351,3 @@ func _refresh_tray(index: int) -> void:
 			material.emission_energy_multiplier = 0.8
 
 		holder.add_child(cube_body)
-
-
-func _on_win_panel_v_box_ok_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
